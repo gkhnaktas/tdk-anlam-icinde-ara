@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TDK</title>
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/v/bm/jq-3.7.0/dt-1.13.6/rg-1.4.1/datatables.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/plug-ins/1.13.6/features/searchHighlight/dataTables.searchHighlight.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <section class="section">
+            <div class="container">
+                <h1 class="title">TDK anlam ara</h1>
+                <table id="datatable" class="table is-bordered is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Madde</th>
+                            <th>Anlam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+
+    </body>
+
+    <script src="https://cdn.datatables.net/v/bm/jq-3.7.0/dt-1.13.6/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables-rowsgroup-kaihei777@1.0.0/dataTables.rowsGroup.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.13.6/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+    <script src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
+    <script src="data.js"></script>
+    <script>        
+        $(document).ready(function() {
+
+            var table = $('#datatable').DataTable({
+                "data": tdk,
+                "columns": [
+                    {"data": "madde"},
+                    {"data": "anlam"}
+                ],
+                "pageLength": 50,
+                "rowsGroup": [0],
+                "searchHighlight": true,
+                "columnDefs":  [
+                    {
+                        orderable: false, 
+                        targets: [1] 
+                    }
+                 ],
+            });
+
+
+            $(".dataTables_filter input")
+                .unbind()
+                .bind('keyup change', function(e) {
+                    if (e.keyCode == 13 || this.value == "") {
+                        table
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+
+        });
+    </script>
+
+</html>
