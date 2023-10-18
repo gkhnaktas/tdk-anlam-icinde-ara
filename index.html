@@ -43,7 +43,8 @@
                 "data": tdk,
                 "columns": [
                     {"data": "madde"},
-                    {"data": "anlam"}
+                    {"data": "anlam"},
+                    {"data": null},
                 ],
                 "pageLength": 50,
                 "rowsGroup": [0],
@@ -51,7 +52,12 @@
                 "columnDefs":  [
                     {
                         orderable: false, 
-                        targets: [1] 
+                        targets: [1, 2] 
+                    },
+                    {
+                        data: null,
+                        defaultContent: '<button>TDK</button>',
+                        targets: [2] 
                     }
                  ],
             });
@@ -66,6 +72,11 @@
                             .draw();
                     }
                 });
+
+            table.on('click', 'button', function (e) {
+                let data = $(this).closest('td').prev().closest('td').prev()[0].innerText;
+                window.open('http://sozluk.gov.tr/?/' + data, '_blank');
+            });
 
         });
     </script>
